@@ -1,0 +1,8 @@
+# -*- depends: fastcgi -*-
+
+fastcgi.server += ( ".php" => 
+  ((
+    "socket" => "/var/run/php/php{{ ttrss_php_default_version_debian }}-fpm.sock"
+  ))    
+)
+

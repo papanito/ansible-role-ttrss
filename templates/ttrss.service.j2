@@ -1,0 +1,8 @@
+[Unit]
+Description=Update ttrss     {{ service_name }}
+
+[Service]
+Type=simple
+ExecStart=/bin/sh {{ systemd_script_target }}/automatic-backup-{{ service_name }}.sh
+User={{ systemd_user }}
+Group={{ systemd_group }}

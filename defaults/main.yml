@@ -1,0 +1,203 @@
+---
+# defaults file for tt-rss
+# Database user
+ttrss_db_user: ttrss
+# Database password, please change when using the role
+ttrss_db_password: ttrss
+# Database name
+ttrss_db_name: ttrss
+# Database encoding
+ttrss_db_encoding: "UTF-8"
+# Databse collation, defines sort order and character classification
+ttrss_db_collate: "de_DE.UTF-8"
+# Database ctype, defines character classification
+ttrss_db_ctype: "de_DE.UTF-8"
+# URL of the Tiny Tiny RSS git repository, change when you want to use a fork
+ttrss_git_repo: "https://git.tt-rss.org/fox/tt-rss.git"
+# Path to the folder, where Tiny Tiny RSS will be installed
+ttrss_install_path: "/var/www/rss"
+#  URL PATH of4 the Tiny Tiny RSS installation, change only when you know what you do
+ttrss_url_path: "{{ ttrss_install_path | basename }}"
+# Enable gzip out to improve wire performance, This requires PHP Zlib extension on the server
+# Set to True or False
+ttrss_enable_gzip: true
+# Sets log destination for Tiny Tiny RSS
+# syslog - logs to system log
+# sql - logs to database, can be seen in Preferences -> System
+# '' - uses PHP logging, usually the http server error log
+ttrss_log_destination: syslog
+
+ttrss_url_prefix: "https://"
+ttrss_hostname: "{{ ansible_default_ipv4.address }}"
+ttrss_url: "{{ ttrss_url_prefix }}{{ ttrss_hostname }}"
+
+## ttrss config
+ttrss_smtp_from_address: noreply@your.domain.dom
+ttrss_smtp_server: ""
+ttrss_smtp_login: ""
+ttrss_smtp_password: ""
+ttrss_smtp_secure: ""
+
+ttrss_plugins_git:
+  - name: feediron
+    url: git://github.com/m42e/ttrss_plugin-feediron.git
+
+ttrss_plugins_base_path: plugins.local
+
+## php defaults
+# Pass in a comma-separated list of repos to use (e.g. "remi,epel"). Used only
+# for RHEL/CentOS.
+ttrss_php_enablerepo: ""
+
+# Default PHP version to install on Debian-based OSes (OS-specific).
+ttrss_php_default_version_debian: "7.3"
+
+# Extra packages to install (in addition to distro-specific default lists).
+ttrss_php_packages_extra: [ "php{{ ttrss_php_default_version_debian }}-pgsql", "php{{ ttrss_php_default_version_debian }}-intl" ]
+
+ttrss_php_webserver_daemon: lighttpd
+# PHP package state; use 'present' to make sure it's installed, or 'latest' if
+# you want to upgrade or switch versions using a new repo.
+ttrss_php_packages_state: present
+
+# Whether to install recommended packages. Used only for Debian/Ubuntu.
+ttrss_php_install_recommends: true
+
+# Set this to false if you're not using PHP with Apache/Nginx/etc.
+ttrss_php_enable_webserver: true
+
+# PHP-FPM configuration.
+ttrss_php_enable_ttrss_php_fpm: false
+ttrss_php_fpm_state: started
+ttrss_php_fpm_handler_state: restarted
+ttrss_php_fpm_enabled_on_boot: true
+ttrss_php_fpm_listen: "127.0.0.1:9000"
+ttrss_php_fpm_listen_allowed_clients: "127.0.0.1"
+ttrss_php_fpm_pm_max_children: 50
+ttrss_php_fpm_pm_start_servers: 5
+ttrss_php_fpm_pm_min_spare_servers: 5
+ttrss_php_fpm_pm_max_spare_servers: 5
+
+# The executable to run when calling PHP from the command line.
+ttrss_php_executable: "php"
+
+# OpCache settings.
+ttrss_php_opcache_zend_extension: "opcache.so"
+ttrss_php_opcache_enable: "1"
+ttrss_php_opcache_enable_cli: "0"
+ttrss_php_opcache_memory_consumption: "96"
+ttrss_php_opcache_interned_strings_buffer: "16"
+ttrss_php_opcache_max_accelerated_files: "4096"
+ttrss_php_opcache_max_wasted_percentage: "5"
+ttrss_php_opcache_validate_timestamps: "1"
+ttrss_php_opcache_revalidate_path: "0"
+ttrss_php_opcache_revalidate_freq: "2"
+ttrss_php_opcache_max_file_size: "0"
+ttrss_php_opcache_blacklist_filename: ""
+
+# APCu settings.
+ttrss_php_enable_apc: true
+ttrss_php_apc_shm_size: "96M"
+ttrss_php_apc_enable_cli: "0"
+
+# If this is set to false, none of the following options will have any effect.
+# Any and all changes to /etc/php.ini will be your responsibility.
+ttrss_php_use_managed_ini: true
+
+ttrss_php_expose_php: "On"
+ttrss_php_memory_limit: "256M"
+ttrss_php_max_execution_time: "60"
+ttrss_php_max_input_time: "60"
+ttrss_php_max_input_vars: "1000"
+ttrss_php_realpath_cache_size: "32K"
+
+ttrss_php_file_uploads: "On"
+ttrss_php_upload_max_filesize: "64M"
+ttrss_php_max_file_uploads: "20"
+
+ttrss_php_post_max_size: "32M"
+ttrss_php_date_timezone: "America/Chicago"
+ttrss_php_allow_url_fopen: "On"
+
+ttrss_php_sendmail_path: "/usr/sbin/sendmail -t -i"
+ttrss_php_output_buffering: "4096"
+ttrss_php_short_open_tag: "Off"
+ttrss_php_disable_functions: []
+ttrss_php_precision: 14
+ttrss_php_serialize_precision: "-1"
+
+ttrss_php_session_cookie_lifetime: 0
+ttrss_php_session_gc_probability: 1
+ttrss_php_session_gc_divisor: 1000
+ttrss_php_session_gc_maxlifetime: 1440
+ttrss_php_session_save_handler: files
+ttrss_php_session_save_path: ''
+
+ttrss_php_error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
+ttrss_php_display_errors: "Off"
+ttrss_php_display_startup_errors: "Off"
+
+# Install PHP from source (instead of using a package manager) with these vars.
+ttrss_php_install_from_source: false
+ttrss_php_source_repo: "https://git.php.net/repository/php-src.git"
+ttrss_php_source_version: "master"
+ttrss_php_source_clone_dir: "~/php-src"
+ttrss_php_source_clone_depth: 1
+ttrss_php_source_install_path: "/opt/php"
+ttrss_php_source_install_gmp_path: "/usr/include/x86_64-linux-gnu/gmp.h"
+ttrss_php_source_mysql_config: "/usr/bin/mysql_config"
+# For faster compile time: "make --jobs=X" where X is # of cores present.
+
+## postgres defaults
+# RHEL/CentOS only. Set a repository to use for PostgreSQL installation.
+ttrss_postgresql_enablerepo: ""
+
+ttrss_postgresql_python_library: python-psycopg2
+ttrss_postgresql_user: postgres
+ttrss_postgresql_group: postgres
+
+# Host based authentication (hba) entries to be added to the pg_hba.conf. This
+# variable's defaults reflect the defaults that come with a fresh installation.
+ttrss_postgresql_hba_entries:
+  - {type: local, database: all, user: postgres, auth_method: peer}
+  - {type: local, database: all, user: all, auth_method: md5}
+  - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5}
+  - {type: host, database: all, user: all, address: '::1/128', auth_method: md5}
+
+# Debian only. Used to generate the locales used by PostgreSQL databases.
+ttrss_postgresql_locales:
+  - 'en_US.UTF-8'
+
+# Databases to ensure exist.
+ttrss_postgresql_databases:
+- name: "{{ ttrss_db_name }}" # required; the rest are optional
+  #login_user: "{{ ttrss_db_user }}"
+  #login_password: "{{ ttrss_db_password }}"
+  lc_collate: "{{ ttrss_db_collate }}"
+  lc_ctype: "{{ ttrss_db_ctype }}"
+  encoding: "{{ ttrss_db_encoding }}"
+  # template: # defaults to 'template0'
+  # login_host: # defaults to 'localhost'
+  # login_unix_socket: # defaults to 1st of ttrss_postgresql_unix_socket_directories
+  #   port: # defaults to not set
+  #   owner: # defaults to ttrss_postgresql_user
+  #   state: # defaults to 'present'
+
+# Users to ensure exist.
+ttrss_postgresql_users:
+- name: "{{ ttrss_db_user }}"
+  password: "{{ ttrss_db_password }}"
+  db: "{{ ttrss_db_name }}"
+#   encrypted: # defaults to not set
+#   priv: # defaults to not set
+#   role_attr_flags: # defaults to not set
+#   db: # defaults to not set
+#   login_host: # defaults to 'localhost'
+#   login_password: # defaults to not set
+#   login_user: # defaults to '{{ ttrss_postgresql_user }}'
+#   login_unix_socket: # defaults to 1st of ttrss_postgresql_unix_socket_directories
+#   port: # defaults to not set
+#   state: # defaults to 'present'
+
+# Whether to output user data when managing users.
+ttrss_postgres_users_no_log: true

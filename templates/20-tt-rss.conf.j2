@@ -1,0 +1,27 @@
+# -*- depends: expire -*-
+
+$HTTP["url"] =~ "^/{{ ttrss_url_path }}/" {
+	server.document-root = "{{ ttrss_install_path }}"
+	dir-listing.activate = "disable"
+	$HTTP["url"] =~ "^/{{ ttrss_url_path }}/(locale|classes|schema|lock|utils|cache|templates|\.git)/" {
+		url.access-deny = ( "" )
+	}
+	expire.url = (
+		"/{{ ttrss_url_path }}/css/" => "access plus 1 days",
+		"/{{ ttrss_url_path }}/images/" => "access plus 1 days",
+		"/{{ ttrss_url_path }}/js/" => "access plus 1 days",
+		"/{{ ttrss_url_path }}/feed-icons/" => "access plus 1 hours"
+	)
+} else $HTTP["host"] == "{{ ttrss_hostname }}" {
+	server.document-root = "{{ ttrss_install_path }}"
+	dir-listing.activate = "disable"
+	$HTTP["url"] =~ "{{ ttrss_hostname }}/(locale|classes|schema|lock|utils|cache|templates|\.git)/" {
+		url.access-deny = ( "" )
+	}
+	expire.url = (
+		"{{ ttrss_hostname }}/css/" => "access plus 1 days",
+		"{{ ttrss_hostname }}/images/" => "access plus 1 days",
+		"{{ ttrss_hostname }}/js/" => "access plus 1 days",
+		"{{ ttrss_hostname }}/feed-icons/" => "access plus 1 hours"
+	)	
+}

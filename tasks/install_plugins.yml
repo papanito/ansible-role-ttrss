@@ -1,0 +1,7 @@
+- name: "Ensure git checkout is available"
+  git: # noqa 401
+    repo: "{{ plugin.url }}"
+    dest: "{{ ttrss_install_path }}/{{ ttrss_plugins_base_path }}/{{ plugin.name }}"
+    depth: 1
+    update: yes
+    force: yes

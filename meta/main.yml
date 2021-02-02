@@ -1,0 +1,119 @@
+---
+galaxy_info:
+  role_name: ttrss
+  author: Adrian Wyssmann
+  description: Role for simplified git repo handling
+  company: wyssmann.com
+  issue_tracker_url: https://github.com/papanito/ansible-role-ttrss/issues
+  license: Apache
+  min_ansible_version: 2.7
+
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  galaxy_tags:
+  - web
+  - news
+dependencies:
+  - role: geerlingguy.php
+    vars:
+      php_use_managed_ini: "{{ ttrss_php_use_managed_ini }}"
+      php_webserver_daemon: "{{ ttrss_php_webserver_daemon }}"
+      php_enablerepo: "{{ ttrss_php_enablerepo }}"
+      php_packages_extra: "{{ ttrss_php_packages_extra }}"
+      php_packages_state: "{{ ttrss_php_packages_state }}"
+      php_install_recommends: "{{ ttrss_php_install_recommends }}"
+      php_enable_webserver: "{{ ttrss_php_enable_webserver }}"
+      php_default_version_debian: "{{ ttrss_php_default_version_debian }}"
+      php_enable_php_fpm: "{{ ttrss_php_enable_php_fpm }}"
+      php_fpm_state: "{{ ttrss_php_fpm_state }}"
+      php_fpm_handler_state: "{{ ttrss_php_fpm_handler_state }}"
+      # php_fpm_enabled_on_boot: 
+      # php_fpm_listen: 
+      # php_fpm_listen_allowed_clients: "127.0.0.1"
+      # php_fpm_pm_max_children: 50
+      # php_fpm_pm_start_servers: 5
+      # php_fpm_pm_min_spare_servers: 5
+      # php_fpm_pm_max_spare_servers: 5
+      # # The executable to run when calling PHP from the command line.
+      # php_executable: "php"
+      # # OpCache settings.
+      # php_opcache_zend_extension: "opcache.so"
+      # php_opcache_enable: "1"
+      # php_opcache_enable_cli: "0"
+      # php_opcache_memory_consumption: "96"
+      # php_opcache_interned_strings_buffer: "16"
+      # php_opcache_max_accelerated_files: "4096"
+      # php_opcache_max_wasted_percentage: "5"
+      # php_opcache_validate_timestamps: "1"
+      # php_opcache_revalidate_path: "0"
+      # php_opcache_revalidate_freq: "2"
+      # php_opcache_max_file_size: "0"
+      # php_opcache_blacklist_filename: ""
+      # # APCu settings.
+      # php_enable_apc: true
+      # php_apc_shm_size: "96M"
+      # php_apc_enable_cli: "0"
+      # # If this is set to false, none of the following options will have any effect.
+      # # Any and all changes to /etc/php.ini will be your responsibility.
+      # php_use_managed_ini: true
+      # php_expose_php: "On"
+      # php_memory_limit: "256M"
+      # php_max_execution_time: "60"
+      # php_max_input_time: "60"
+      # php_max_input_vars: "1000"
+      # php_realpath_cache_size: "32K"
+      # php_file_uploads: "On"
+      # php_upload_max_filesize: "64M"
+      # php_max_file_uploads: "20"
+      # php_post_max_size: "32M"
+      # php_date_timezone: "America/Chicago"
+      # php_allow_url_fopen: "On"
+      # php_sendmail_path: "/usr/sbin/sendmail -t -i"
+      # php_output_buffering: "4096"
+      # php_short_open_tag: "Off"
+      # php_disable_functions: []
+      # php_precision: 14
+      # php_serialize_precision: "-1"
+      # php_session_cookie_lifetime: 0
+      # php_session_gc_probability: 1
+      # php_session_gc_divisor: 1000
+      # php_session_gc_maxlifetime: 1440
+      # php_session_save_handler: files
+      # php_session_save_path: ''
+      # php_error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
+      # php_display_errors: "Off"
+      # php_display_startup_errors: "Off"
+      # # Install PHP from source (instead of using a package manager) with these vars.
+      # php_install_from_source: false
+      # php_source_repo: "https://git.php.net/repository/php-src.git"
+      # php_source_version: "master"
+      # php_source_clone_dir: "~/php-src"
+      # php_source_clone_depth: 1
+      # php_source_install_path: "/opt/php"
+      # php_source_install_gmp_path: "/usr/include/x86_64-linux-gnu/gmp.h"
+      # php_source_mysql_config: "/usr/bin/mysql_config"
+      # php_source_make_command: "{{ php_source_make_command }}"
+      # php_source_configure_command: "{{ php_source_configure_command }}"
+  - role: geerlingguy.postgresql
+    vars:
+      postgresql_restarted_state: "{{ ttrss_postgresql_restarted_state }}"
+      postgresql_python_library: "{{ ttrss_postgresql_python_library }}"
+      postgresql_user: "{{ ttrss_postgresql_user }}"
+      postgresql_group: "{{ ttrss_postgresql_group }}"
+      postgresql_unix_socket_directories: "{{ ttrss_postgresql_unix_socket_directories }}"
+      postgresql_service_state: "{{ ttrss_postgresql_service_state }}"
+      postgresql_service_enabled: "{{ ttrss_postgresql_service_enabled }}"
+      postgresql_global_config_options: "{{ ttrss_postgresql_global_config_options }}"
+      postgresql_hba_entries: "{{ ttrss_postgresql_hba_entries }}"
+      postgresql_locales: "{{ ttrss_postgresql_locales }}"
+      postgresql_databases: "{{ ttrss_postgresql_databases }}"
+      postgresql_users: "{{ ttrss_postgresql_users }}"
+      postgres_users_no_log: "{{ ttrss_postgres_users_no_log }}"
