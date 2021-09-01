@@ -51,7 +51,6 @@ ttrss_php_enablerepo: ""
 
 # Default PHP version to install on Debian-based OSes (OS-specific).
 ttrss_php_default_version_debian: "7.3"
-
 # Extra packages to install (in addition to distro-specific default lists).
 ttrss_php_packages_extra: [ "php{{ ttrss_php_default_version_debian }}-pgsql", "php{{ ttrss_php_default_version_debian }}-intl" ]
 
@@ -201,3 +200,6 @@ ttrss_postgresql_users:
 
 # Whether to output user data when managing users.
 ttrss_postgres_users_no_log: true
+
+ttrss_postgresql_service_state: started
+ttrss_postgresql_service_enabled: true
