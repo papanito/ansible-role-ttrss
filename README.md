@@ -32,8 +32,8 @@ These variables are specific for the tt-rss config incl. lighttpd
 | `ttrss_db_password` | Database password, please change when using the role | `ttrss`|
 | `ttrss_db_name` | Database name | `ttrss` |
 | `ttrss_db_encoding` | Database encoding | `UTF-8`|
-| `ttrss_db_collate` | Database collation, defines sort order and character classification | `de_DE.UTF-8` |
-| `ttrss_db_ctype` | Database ctype, defines character classification | `de_DE.UTF-8` |
+| `ttrss_db_collate` | Database collation, defines sort order and character classification | `en_US.UTF-8` |
+| `ttrss_db_ctype` | Database ctype, defines character classification | `en_US.UTF-8` |
 | `ttrss_git_repo` | URL of the Tiny Tiny RSS git repository, change when you want to use a fork | `https://tt-rss.org/gitlab/fox/tt-rss.git` |
 | `ttrss_install_path` | Path to the folder, where Tiny Tiny RSS will be installed | `/var/www/rss` |
 | `ttrss_url_path` | `URL PATH` of the Tiny Tiny RSS installation, change only when you know what you do | `{{ ttrss_install_path | basename }}` |
@@ -51,7 +51,7 @@ The `ttrss_plugins_git` is a list wherase the `name`is also the target folder e.
 
 ```yaml
 - name: feediron
-  url: git://github.com/m42e/ttrss_plugin-feediron.git
+  url: git://github.com/feediron/ttrss_plugin-feediron
 ```
 
 ### php-specific
