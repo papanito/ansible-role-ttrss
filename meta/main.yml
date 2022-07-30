@@ -34,6 +34,24 @@ dependencies:
       php_enable_php_fpm: "{{ ttrss_php_enable_php_fpm }}"
       php_fpm_state: "{{ ttrss_php_fpm_state }}"
       php_fpm_handler_state: "{{ ttrss_php_fpm_handler_state }}"
+      php_default_version_debian: "{{ ttrss_php_default_version_debian }}"
+      php_packages:
+      - php{{ php_default_version_debian }}-common
+      - php{{ php_default_version_debian }}-cli
+      - php{{ php_default_version_debian }}-dev
+      - php{{ php_default_version_debian }}-fpm
+      - libpcre3-dev
+      - libpcre2-dev
+      - php{{ php_default_version_debian }}-gd
+      - php{{ php_default_version_debian }}-curl
+      - php{{ php_default_version_debian }}-imap
+      - php{{ php_default_version_debian }}-json
+      - php{{ php_default_version_debian }}-opcache
+      - php{{ php_default_version_debian }}-xml
+      - php{{ php_default_version_debian }}-mbstring
+      - php{{ php_default_version_debian }}-apcu
+      - php{{ php_default_version_debian }}-sqlite3
+      - php-common
       # php_fpm_enabled_on_boot: 
       # php_fpm_listen: 
       # php_fpm_listen_allowed_clients: "127.0.0.1"

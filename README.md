@@ -46,12 +46,13 @@ These variables are specific for the tt-rss config incl. lighttpd
 | `ttrss_smtp_password`| Password for SMTP authentication when sending outgoing mail | `''` |
 | `ttrss_smtp_secure`| Select a secure SMTP connection. Allowed values: `ssl`, `tls` or empty. | `''` |
 | `ttrss_plugins_git` | List of git-urls to plugins to install | feediron |
+| `ttrss_php_executable`| Path to cli binary | `/usr/bin/php` |
 
 The `ttrss_plugins_git` is a list wherase the `name`is also the target folder e.g. `{ttrss_install_path}/plugins.local/feediron`:
 
 ```yaml
 - name: feediron
-  url: git://github.com/feediron/ttrss_plugin-feediron
+  url: https://github.com/feediron/ttrss_plugin-feediron.git
 ```
 
 ### php-specific

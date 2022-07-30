@@ -26,6 +26,7 @@ ttrss_enable_gzip: true
 # sql - logs to database, can be seen in Preferences -> System
 # '' - uses PHP logging, usually the http server error log
 ttrss_log_destination: syslog
+ttrss_postgresql_restarted_state: "restarted"
 
 ttrss_url_prefix: "https://"
 ttrss_hostname: "{{ ansible_default_ipv4.address }}"
@@ -40,9 +41,11 @@ ttrss_smtp_secure: ""
 
 ttrss_plugins_git:
   - name: feediron
-    url: git://github.com/m42e/ttrss_plugin-feediron.git
+    url: https://github.com/feediron/ttrss_plugin-feediron.git
 
 ttrss_plugins_base_path: plugins.local
+
+ttrss_php_executable: "/usr/bin/php"
 
 ## php defaults
 # Pass in a comma-separated list of repos to use (e.g. "remi,epel"). Used only
@@ -50,7 +53,7 @@ ttrss_plugins_base_path: plugins.local
 ttrss_php_enablerepo: ""
 
 # Default PHP version to install on Debian-based OSes (OS-specific).
-ttrss_php_default_version_debian: "7.3"
+ttrss_php_default_version_debian: "7.4"
 # Extra packages to install (in addition to distro-specific default lists).
 ttrss_php_packages_extra: [ "php{{ ttrss_php_default_version_debian }}-pgsql", "php{{ ttrss_php_default_version_debian }}-intl" ]
 
@@ -158,7 +161,7 @@ ttrss_postgresql_group: postgres
 # Host based authentication (hba) entries to be added to the pg_hba.conf. This
 # variable's defaults reflect the defaults that come with a fresh installation.
 ttrss_postgresql_hba_entries:
-  - {type: local, database: all, user: postgres, auth_method: trust}
+  - {type: local, database: all, user: postgres, auth_method: md5}
   - {type: local, database: all, user: all, auth_method: md5}
   - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5}
   - {type: host, database: all, user: all, address: '::1/128', auth_method: md5}
@@ -170,8 +173,8 @@ ttrss_postgresql_locales:
 # Databases to ensure exist.
 ttrss_postgresql_databases:
 - name: "{{ ttrss_db_name }}" # required; the rest are optional
-  #login_user: "{{ ttrss_db_user }}"
-  #login_password: "{{ ttrss_db_password }}"
+  login_user: "{{ ttrss_db_user }}"
+  login_password: "{{ ttrss_db_password }}"
   lc_collate: "{{ ttrss_db_collate }}"
   lc_ctype: "{{ ttrss_db_ctype }}"
   encoding: "{{ ttrss_db_encoding }}"
@@ -192,7 +195,7 @@ ttrss_postgresql_users:
 #   role_attr_flags: # defaults to not set
 #   db: # defaults to not set
 #   login_host: # defaults to 'localhost'
-#   login_password: # defaults to not set
+  login_password: "{{ ttrss_db_password }}"
 #   login_user: # defaults to '{{ ttrss_postgresql_user }}'
 #   login_unix_socket: # defaults to 1st of ttrss_postgresql_unix_socket_directories
 #   port: # defaults to not set
