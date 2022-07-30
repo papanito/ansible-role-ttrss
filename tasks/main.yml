@@ -31,6 +31,33 @@
   - cache
   - feed-icons
   - lock
+  tags:
+  - ttrss
+  - permissions
+
+- name: Ensure needed cache directory is writeable
+  file:
+    state: directory
+    mode: 0777
+    path: "{{ ttrss_install_path }}/cache/"
+  tags:
+  - ttrss
+  - permissions
+
+
+- name: Ensure needed cache directories are writeable
+  file:
+    state: directory
+    mode: 0777
+    recurse: yes
+    path: "{{ ttrss_install_path }}/cache/{{ item }}"
+  with_items:
+  - images
+  - export
+  - upload
+  tags:
+  - ttrss
+  - permissions
 
 - name: Ensure db objects are created
   environment:
@@ -40,6 +67,8 @@
   command: psql -d "{{ ttrss_db_name }}" -f "{{ ttrss_install_path }}/schema/ttrss_schema_pgsql.sql"
   args:
     creates: "{{ ttrss_install_path }}/config.php"
+  tags:
+  - ttrss
 
 - name: Ensure config.php is present
   template:
@@ -48,6 +77,8 @@
     group: www-data
     mode: 0644
     dest: "{{  ttrss_install_path }}/config.php"
+  tags:
+  - ttrss
 
 - name: "Ensure lighttpd is configured"
   template:
@@ -61,6 +92,9 @@
   with_items:
     - { src: 20-tt-rss.conf.j2, dest: /etc/lighttpd/conf-available/20-tt-rss.conf }
     - { src: 15-fastcgi-php-fpm.conf.j2, dest: /etc/lighttpd/conf-available/15-fastcgi-php-fpm.conf }
+  tags:
+  - ttrss
+  - lighttpd
 
 - name: Ensure lighttpd modules are loaded
   command: /usr/sbin/lighty-enable-mod "{{ item }}"
@@ -74,14 +108,19 @@
     - expire
     - fastcgi
     - accesslog
+  tags:
+  - ttrss
+  - lighttpd
 
-- name: Ensure init.d script for update-daemon is availaible
+- name: Ensure init.d script for update-daemon is available
   copy:
     src: tt-rss
     dest: /etc/init.d/tt-rss
     owner: root
     group: root
     mode: 0755
+  tags:
+  - ttrss
 
 - name: Ensure config for update-daemon is available
   template:
@@ -92,9 +131,13 @@
     mode: 0644
   notify:
     - Restart tt-rss daemon
+  tags:
+  - ttrss
 
 - name: Ensure init.d script for update-daemon is enabled and runs
   service:
     name: tt-rss
     enabled: yes
     state: started
+  tags:
+  - ttrss
