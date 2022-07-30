@@ -27,6 +27,7 @@ These variables are specific for the tt-rss config incl. lighttpd
 | `ttrss_hostname` | Hostname of the url on which the site can be reached | `{{ ansible_default_ipv4.address }}` |
 | `ttrss_url_prefix` | url-prefix, mainly used for default value of `ttrss_url` | `https://` |
 | `ttrss_url` | `SELF_URL_PATH` Full URL of your tt-rss installation. This should be set to the location of tt-rss directory, e.g. http://example.org/tt-rss/<br> You need to set this option correctly otherwise several features including PUSH, bookmarklets and browser integration will not work properly. | `"{{ ttrss_url_prefix }}{{ ttrss_hostname }}` |
+| `ttrss_init_system` | Service backend for [update daemon](https://tt-rss.org/wiki/UpdatingFeeds). `systemd` or `system-v` | `systemd` |
 | `ttrss_db_user` | Database user | `ttrss` |
 | `ttrss_url` | Public url of ttrss | `http://{{ ansible_default_ipv4.address }}` |
 | `ttrss_db_password` | Database password, please change when using the role | `ttrss`|
@@ -46,7 +47,7 @@ These variables are specific for the tt-rss config incl. lighttpd
 | `ttrss_smtp_password`| Password for SMTP authentication when sending outgoing mail | `''` |
 | `ttrss_smtp_secure`| Select a secure SMTP connection. Allowed values: `ssl`, `tls` or empty. | `''` |
 | `ttrss_plugins_git` | List of git-urls to plugins to install | feediron |
-| `ttrss_php_executable`| Path to cli binary | `/usr/bin/php` |
+| `ttrss_php_executable`| Path to cli binary | `/usr/bin/php7.4` |
 
 The `ttrss_plugins_git` is a list wherase the `name`is also the target folder e.g. `{ttrss_install_path}/plugins.local/feediron`:
 

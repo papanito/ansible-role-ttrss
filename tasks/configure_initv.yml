@@ -1,0 +1,32 @@
+- name: Ensure init.d script for update-daemon is available
+  copy:
+    src: tt-rss
+    dest: /etc/init.d/tt-rss
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+  - ttrss
+  - backend
+
+- name: Ensure config for update-daemon is available
+  template:
+    src: default-tt-rss.j2
+    dest: /etc/default/tt-rss
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart tt-rss daemon
+  tags:
+  - ttrss
+  - backend
+
+- name: Ensure init.d script for update-daemon is enabled and runs
+  service:
+    name: tt-rss
+    enabled: yes
+    state: started
+  tags:
+  - ttrss
+  - backend

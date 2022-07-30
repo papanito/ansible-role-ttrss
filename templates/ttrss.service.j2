@@ -1,0 +1,10 @@
+[Unit]
+Description=ttrss_backend
+After=network.target mysql.service postgresql.service
+
+[Service]
+User=www-data
+ExecStart={{ ttrss_php_executable }} {{ ttrss_install_path }}/update_daemon2.php
+
+[Install]
+WantedBy=multi-user.target

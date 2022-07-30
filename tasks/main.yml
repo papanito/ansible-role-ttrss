@@ -112,32 +112,23 @@
   - ttrss
   - lighttpd
 
-- name: Ensure init.d script for update-daemon is available
-  copy:
-    src: tt-rss
-    dest: /etc/init.d/tt-rss
-    owner: root
-    group: root
-    mode: 0755
+- name: Install ttrss backend as a systemd service
+  include_tasks:
+    file: configure_systemd.yml
+    apply:
+      tags: backend
+  no_log: True
+  when: ttrss_init_system == "systemd"
   tags:
   - ttrss
+  - backend
 
-- name: Ensure config for update-daemon is available
-  template:
-    src: default-tt-rss.j2
-    dest: /etc/default/tt-rss
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-    - Restart tt-rss daemon
+- name: Install ttrss backend as a system-v service
+  include_tasks:
+    file: configure_initv.yml
+    apply:
+      tags: backend
+  when: ttrss_init_system == "initv"
   tags:
   - ttrss
-
-- name: Ensure init.d script for update-daemon is enabled and runs
-  service:
-    name: tt-rss
-    enabled: yes
-    state: started
-  tags:
-  - ttrss
+  - backend

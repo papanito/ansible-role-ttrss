@@ -1,5 +1,8 @@
 ---
 # defaults file for tt-rss
+# init system for backend service
+ttrss_init_system: systemd
+ttrss_systemd_target_dir: /etc/systemd/system
 # Database user
 ttrss_db_user: ttrss
 # Database password, please change when using the role
@@ -45,7 +48,7 @@ ttrss_plugins_git:
 
 ttrss_plugins_base_path: plugins.local
 
-ttrss_php_executable: "/usr/bin/php"
+ttrss_php_executable: "/usr/bin/php7.4"
 
 ## php defaults
 # Pass in a comma-separated list of repos to use (e.g. "remi,epel"). Used only
@@ -79,9 +82,6 @@ ttrss_php_fpm_pm_max_children: 50
 ttrss_php_fpm_pm_start_servers: 5
 ttrss_php_fpm_pm_min_spare_servers: 5
 ttrss_php_fpm_pm_max_spare_servers: 5
-
-# The executable to run when calling PHP from the command line.
-ttrss_php_executable: "php"
 
 # OpCache settings.
 ttrss_php_opcache_zend_extension: "opcache.so"

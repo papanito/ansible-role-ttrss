@@ -1,0 +1,35 @@
+- name: Ensure init.d script for update-daemon is disabled
+  service:
+    name: tt-rss
+    enabled: false
+    state: stopped
+  tags:
+  - ttrss
+  - backend
+
+- name: Install ttrss update service in systemd
+  ansible.builtin.template:
+    src: ttrss.service.j2
+    dest: "{{ ttrss_systemd_target_dir }}/ttrss.service"
+  register: service_template
+  tags:
+  - ttrss
+  - backenda
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    no_block: no
+  when: service_template.changed
+  tags:
+  - ttrss
+  - backend
+
+- name: Enable and start ttrss update service
+  ansible.builtin.systemd:
+    name: ttrss
+    enabled: yes
+    state: started
+  tags:
+  - ttrss
+  - backend
