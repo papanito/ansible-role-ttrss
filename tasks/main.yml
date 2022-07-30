@@ -19,12 +19,20 @@
   loop_control:
     loop_var: plugin
 
+- name: Set file permissions
+  file:
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0544
+    recurse: yes
+
 - name: Ensure needed directories are writeable for www-data
   file:
     state: directory
     owner: www-data
     group: www-data
-    mode: 0644
+    mode: 0777
     recurse: yes
     path: "{{ ttrss_install_path }}/{{ item }}"
   with_items:
@@ -35,29 +43,6 @@
   - ttrss
   - permissions
 
-- name: Ensure needed cache directory is writeable
-  file:
-    state: directory
-    mode: 0777
-    path: "{{ ttrss_install_path }}/cache/"
-  tags:
-  - ttrss
-  - permissions
-
-
-- name: Ensure needed cache directories are writeable
-  file:
-    state: directory
-    mode: 0777
-    recurse: yes
-    path: "{{ ttrss_install_path }}/cache/{{ item }}"
-  with_items:
-  - images
-  - export
-  - upload
-  tags:
-  - ttrss
-  - permissions
 
 - name: Ensure db objects are created
   environment:
