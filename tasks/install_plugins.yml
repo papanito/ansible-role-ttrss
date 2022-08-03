@@ -1,10 +1,10 @@
 - name: "Ensure checkout plugin {{ plugin.name }}"
-  git: # noqa 401
+  ansible.builtin.git: # noqa ignore-errors git-latest
     repo: "{{ plugin.url }}"
     dest: "{{ ttrss_install_path }}/{{ ttrss_plugins_base_path }}/{{ plugin.name }}"
     depth: 1
-    update: yes
-    force: yes
+    update: true
+    force: true
   ignore_errors: true
   tags:
-  - ttrss
+    - ttrss

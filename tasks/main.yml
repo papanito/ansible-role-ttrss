@@ -1,47 +1,47 @@
 ---
 # tasks file for tt-rss
 - name: Ensure needed packages are installed
-  package:
+  ansible.builtin.package:
     name: ['lighttpd', 'git']
     state: present
 
 - name: "Ensure git checkout is available"
-  git: # noqa 401
+  ansible.builtin.git: # noqa 401
     repo: "{{ ttrss_git_repo }}"
     dest: "{{ ttrss_install_path }}"
     depth: 1
-    update: yes
-    force: yes
+    update: true
+    force: true
 
 - include_tasks: install_plugins.yml
-  ignore_errors: yes
+  ignore_errors: true
   loop: "{{ ttrss_plugins_git }}"
   loop_control:
     loop_var: plugin
 
 - name: Set file permissions
-  file:
+  ansible.builtin.file:
     state: directory
     owner: www-data
     group: www-data
     mode: 0544
-    recurse: yes
+    recurse: true
 
 - name: Ensure needed directories are writeable for www-data
-  file:
+  ansible.builtin.file:
     state: directory
     owner: www-data
     group: www-data
     mode: 0777
-    recurse: yes
+    recurse: true
     path: "{{ ttrss_install_path }}/{{ item }}"
   with_items:
-  - cache
-  - feed-icons
-  - lock
+    - cache
+    - feed-icons
+    - lock
   tags:
-  - ttrss
-  - permissions
+    - ttrss
+    - permissions
 
 
 - name: Ensure db objects are created
@@ -49,24 +49,24 @@
     PGPASSWORD: "{{ ttrss_db_password }}"
     PGUSER: "{{ ttrss_db_user }}"
     PGHOST: localhost
-  command: psql -d "{{ ttrss_db_name }}" -f "{{ ttrss_install_path }}/schema/ttrss_schema_pgsql.sql"
+  ansible.builtin.command: psql -d "{{ ttrss_db_name }}" -f "{{ ttrss_install_path }}/schema/ttrss_schema_pgsql.sql"
   args:
     creates: "{{ ttrss_install_path }}/config.php"
   tags:
-  - ttrss
+    - ttrss
 
 - name: Ensure config.php is present
-  template:
+  ansible.builtin.template:
     src: config.php.j2
     owner: www-data
     group: www-data
     mode: 0644
     dest: "{{  ttrss_install_path }}/config.php"
   tags:
-  - ttrss
+    - ttrss
 
 - name: "Ensure lighttpd is configured"
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     validate: "lighttpd -t -f %s"
@@ -78,11 +78,11 @@
     - { src: 20-tt-rss.conf.j2, dest: /etc/lighttpd/conf-available/20-tt-rss.conf }
     - { src: 15-fastcgi-php-fpm.conf.j2, dest: /etc/lighttpd/conf-available/15-fastcgi-php-fpm.conf }
   tags:
-  - ttrss
-  - lighttpd
+    - ttrss
+    - lighttpd
 
 - name: Ensure lighttpd modules are loaded
-  command: /usr/sbin/lighty-enable-mod "{{ item }}"
+  ansible.builtin.command: /usr/sbin/lighty-enable-mod "{{ item }}"
   register: result
   failed_when: result.rc != 0 and "already enabled" not in result.stdout
   changed_when: result.rc == 0 and "already enabled" not in result.stdout
@@ -94,19 +94,19 @@
     - fastcgi
     - accesslog
   tags:
-  - ttrss
-  - lighttpd
+    - ttrss
+    - lighttpd
 
 - name: Install ttrss backend as a systemd service
   include_tasks:
     file: configure_systemd.yml
     apply:
       tags: backend
-  no_log: True
+  no_log: true
   when: ttrss_init_system == "systemd"
   tags:
-  - ttrss
-  - backend
+    - ttrss
+    - backend
 
 - name: Install ttrss backend as a system-v service
   include_tasks:
@@ -115,5 +115,5 @@
       tags: backend
   when: ttrss_init_system == "initv"
   tags:
-  - ttrss
-  - backend
+    - ttrss
+    - backend

@@ -1,7 +1,16 @@
 ---
 # handlers file for tt-rss
 - name: Restart lighttpd
-  service: name=lighttpd state=restarted
+  ansible.builtin.service:
+    name: lighttpd
+    state: restarted
 
 - name: Restart tt-rss daemon
-  service: name=tt-rss state=restarted
+  ansible.builtin.service:
+    name: tt-rss
+    state: restarted
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+    no_block: false

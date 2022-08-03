@@ -1,4 +1,4 @@
 roles:
-- name: geerlingguy.postgresql
+  - name: geerlingguy.postgresql
 collections:
-- name: geerlingguy.php_roles
+  - name: geerlingguy.php_roles

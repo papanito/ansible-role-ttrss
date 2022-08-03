@@ -6,21 +6,21 @@ galaxy_info:
   company: wyssmann.com
   issue_tracker_url: https://github.com/papanito/ansible-role-ttrss/issues
   license: Apache
-  min_ansible_version: 2.7
+  min_ansible_version: "2.7"
 
   platforms:
-  - name: EL
-    versions:
-    - all
-  - name: Ubuntu
-    versions:
-    - all
-  - name: Debian
-    versions:
-    - all
+    - name: EL
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
   galaxy_tags:
-  - web
-  - news
+    - web
+    - news
 dependencies:
   - role: geerlingguy.php
     vars:
@@ -36,24 +36,24 @@ dependencies:
       php_fpm_handler_state: "{{ ttrss_php_fpm_handler_state }}"
       php_default_version_debian: "{{ ttrss_php_default_version_debian }}"
       php_packages:
-      - php{{ php_default_version_debian }}-common
-      - php{{ php_default_version_debian }}-cli
-      - php{{ php_default_version_debian }}-dev
-      - php{{ php_default_version_debian }}-fpm
-      - libpcre3-dev
-      - libpcre2-dev
-      - php{{ php_default_version_debian }}-gd
-      - php{{ php_default_version_debian }}-curl
-      - php{{ php_default_version_debian }}-imap
-      - php{{ php_default_version_debian }}-json
-      - php{{ php_default_version_debian }}-opcache
-      - php{{ php_default_version_debian }}-xml
-      - php{{ php_default_version_debian }}-mbstring
-      - php{{ php_default_version_debian }}-apcu
-      - php{{ php_default_version_debian }}-sqlite3
-      - php-common
-      # php_fpm_enabled_on_boot: 
-      # php_fpm_listen: 
+        - php{{ php_default_version_debian }}-common
+        - php{{ php_default_version_debian }}-cli
+        - php{{ php_default_version_debian }}-dev
+        - php{{ php_default_version_debian }}-fpm
+        - libpcre3-dev
+        - libpcre2-dev
+        - php{{ php_default_version_debian }}-gd
+        - php{{ php_default_version_debian }}-curl
+        - php{{ php_default_version_debian }}-imap
+        - php{{ php_default_version_debian }}-json
+        - php{{ php_default_version_debian }}-opcache
+        - php{{ php_default_version_debian }}-xml
+        - php{{ php_default_version_debian }}-mbstring
+        - php{{ php_default_version_debian }}-apcu
+        - php{{ php_default_version_debian }}-sqlite3
+        - php-common
+      # php_fpm_enabled_on_boot:
+      # php_fpm_listen:
       # php_fpm_listen_allowed_clients: "127.0.0.1"
       # php_fpm_pm_max_children: 50
       # php_fpm_pm_start_servers: 5

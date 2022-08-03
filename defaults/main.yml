@@ -58,7 +58,7 @@ ttrss_php_enablerepo: ""
 # Default PHP version to install on Debian-based OSes (OS-specific).
 ttrss_php_default_version_debian: "7.4"
 # Extra packages to install (in addition to distro-specific default lists).
-ttrss_php_packages_extra: [ "php{{ ttrss_php_default_version_debian }}-pgsql", "php{{ ttrss_php_default_version_debian }}-intl" ]
+ttrss_php_packages_extra: ["php{{ ttrss_php_default_version_debian }}-pgsql", "php{{ ttrss_php_default_version_debian }}-intl"]
 
 ttrss_php_webserver_daemon: lighttpd
 # PHP package state; use 'present' to make sure it's installed, or 'latest' if
@@ -172,30 +172,30 @@ ttrss_postgresql_locales:
 
 # Databases to ensure exist.
 ttrss_postgresql_databases:
-- name: "{{ ttrss_db_name }}" # required; the rest are optional
-  login_user: "{{ ttrss_db_user }}"
-  login_password: "{{ ttrss_db_password }}"
-  lc_collate: "{{ ttrss_db_collate }}"
-  lc_ctype: "{{ ttrss_db_ctype }}"
-  encoding: "{{ ttrss_db_encoding }}"
-  # template: # defaults to 'template0'
-  # login_host: # defaults to 'localhost'
-  # login_unix_socket: # defaults to 1st of ttrss_postgresql_unix_socket_directories
-  #   port: # defaults to not set
-  #   owner: # defaults to ttrss_postgresql_user
-  #   state: # defaults to 'present'
+  - name: "{{ ttrss_db_name }}" # required; the rest are optional
+    login_user: "{{ ttrss_db_user }}"
+    login_password: "{{ ttrss_db_password }}"
+    lc_collate: "{{ ttrss_db_collate }}"
+    lc_ctype: "{{ ttrss_db_ctype }}"
+    encoding: "{{ ttrss_db_encoding }}"
+    # template: # defaults to 'template0'
+    # login_host: # defaults to 'localhost'
+    # login_unix_socket: # defaults to 1st of ttrss_postgresql_unix_socket_directories
+    #   port: # defaults to not set
+    #   owner: # defaults to ttrss_postgresql_user
+    #   state: # defaults to 'present'
 
 # Users to ensure exist.
 ttrss_postgresql_users:
-- name: "{{ ttrss_db_user }}"
-  password: "{{ ttrss_db_password }}"
-  db: "{{ ttrss_db_name }}"
+  - name: "{{ ttrss_db_user }}"
+    password: "{{ ttrss_db_password }}"
+    db: "{{ ttrss_db_name }}"
 #   encrypted: # defaults to not set
 #   priv: # defaults to not set
 #   role_attr_flags: # defaults to not set
 #   db: # defaults to not set
 #   login_host: # defaults to 'localhost'
-  login_password: "{{ ttrss_db_password }}"
+    login_password: "{{ ttrss_db_password }}"
 #   login_user: # defaults to '{{ ttrss_postgresql_user }}'
 #   login_unix_socket: # defaults to 1st of ttrss_postgresql_unix_socket_directories
 #   port: # defaults to not set

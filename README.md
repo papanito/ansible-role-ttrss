@@ -14,7 +14,11 @@ I recommend to use the role on a dedicate cloud instance - see below for an exam
 
 ## Requirements
 
-No special requirements
+TTRSS requires now PHP > 7.4
+
+Also be [aware of this](https://tt-rss.org/wiki/UpdatingFeeds):
+
+> Host installations are not supported starting 2021.
 
 ## Role Variables
 
