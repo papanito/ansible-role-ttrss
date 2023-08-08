@@ -4,7 +4,7 @@
     dest: /etc/init.d/tt-rss
     owner: root
     group: root
-    mode: 0755
+    mode: "755"
   tags:
     - ttrss
     - backend
@@ -15,7 +15,7 @@
     dest: /etc/default/tt-rss
     owner: root
     group: root
-    mode: 0644
+    mode: "644"
   notify:
     - Restart tt-rss daemon
   tags:

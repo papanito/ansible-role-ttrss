@@ -6,14 +6,15 @@
     state: present
 
 - name: "Ensure git checkout is available"
-  ansible.builtin.git: # noqa 401
+  ansible.builtin.git:
     repo: "{{ ttrss_git_repo }}"
     dest: "{{ ttrss_install_path }}"
     depth: 1
     update: true
     force: true
 
-- include_tasks: install_plugins.yml
+- name: Install plugins
+  ansible.builtin.include_tasks: install_plugins.yml
   ignore_errors: true
   loop: "{{ ttrss_plugins_git }}"
   loop_control:
@@ -24,15 +25,16 @@
     state: directory
     owner: www-data
     group: www-data
-    mode: 0544
+    mode: "544"
     recurse: true
+    path: "{{ ttrss_install_path }}"
 
 - name: Ensure needed directories are writeable for www-data
   ansible.builtin.file:
     state: directory
     owner: www-data
     group: www-data
-    mode: 0777
+    mode: "777"
     recurse: true
     path: "{{ ttrss_install_path }}/{{ item }}"
   with_items:
@@ -60,7 +62,7 @@
     src: config.php.j2
     owner: www-data
     group: www-data
-    mode: 0644
+    mode: "644"
     dest: "{{  ttrss_install_path }}/config.php"
   tags:
     - ttrss
@@ -72,7 +74,7 @@
     validate: "lighttpd -t -f %s"
     owner: root
     group: root
-    mode: 0644
+    mode: "644"
   notify: Restart lighttpd
   with_items:
     - { src: 20-tt-rss.conf.j2, dest: /etc/lighttpd/conf-available/20-tt-rss.conf }
@@ -98,22 +100,22 @@
     - lighttpd
 
 - name: Install ttrss backend as a systemd service
-  include_tasks:
+  when: ttrss_init_system == "systemd"
+  ansible.builtin.include_tasks:
     file: configure_systemd.yml
     apply:
       tags: backend
   no_log: true
-  when: ttrss_init_system == "systemd"
   tags:
     - ttrss
     - backend
 
 - name: Install ttrss backend as a system-v service
-  include_tasks:
+  when: ttrss_init_system == "initv"
+  ansible.builtin.include_tasks:
     file: configure_initv.yml
     apply:
       tags: backend
-  when: ttrss_init_system == "initv"
   tags:
     - ttrss
     - backend
