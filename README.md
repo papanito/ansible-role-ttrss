@@ -1,6 +1,6 @@
 # Ansible role "papanito.ttrss"  <!-- omit in toc -->
 
-[![Ansible Role](https://img.shields.io/ansible/role/52929)](https://galaxy.ansible.com/papanito/ttrss) [![Ansible Quality Score](https://img.shields.io/ansible/quality/52929)](https://galaxy.ansible.com/papanito/ttrss) [![Ansible Role](https://img.shields.io/ansible/role/d/52929)](https://galaxy.ansible.com/papanito/ttrss) [![GitHub issues](https://img.shields.io/github/issues/papanito/ansible-role-ttrss)](https://github.com/papanito/ansible-role-ttrss/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/papanito/ansible-role-ttrss)](https://github.com/papanito/ansible-role-ttrss/pulls)
+[![Ansible Role](https://img.shields.io/ansible/role/d/papanito/ttrss)](https://galaxy.ansible.com/papanito/ttrss) [![GitHub issues](https://img.shields.io/github/issues/papanito/ansible-role-ttrss)](https://github.com/papanito/ansible-role-ttrss/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/papanito/ansible-role-ttrss)](https://github.com/papanito/ansible-role-ttrss/pulls)
 
 Installs an dedicated instance of Tiny Tiny RSS and all it's dependencies (php, PostgreSQL, Lighttpd).
 
